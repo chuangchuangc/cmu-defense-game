@@ -1,5 +1,5 @@
 # cmu-defense-game
-##Main Menu
+## Main Menu
 Include the start and setting button.
 When players click start, players can select the level to play.
 
