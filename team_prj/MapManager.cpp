@@ -4,11 +4,9 @@
 //  Created by Valen Hsu on 11/21/22.
 //
 
-
 #include "MapManager.h"
 
-void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower1fn[], const char tower2fn[],
-    const char tower3fn[]) {
+void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower1fn[], const char tower2fn[], const char upgradefn[], const char removefn[], const char backfn[]) {
     YsRawPngDecoder pngTemp;
 
     pngTemp.Decode(menufn);
@@ -45,26 +43,7 @@ void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char t
         GL_UNSIGNED_BYTE,
         pngTemp.rgba);
 
-
-
     coin_wid = pngTemp.wid; coin_hei = pngTemp.hei;
-
-    pngTemp.Decode(tower3fn);
-    glGenTextures(1, &texture_tower3);
-    glBindTexture(GL_TEXTURE_2D, texture_tower3);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
 
     pngTemp.Decode(tower1fn);
     glGenTextures(1, &texture_tower1);
@@ -102,11 +81,61 @@ void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char t
         GL_UNSIGNED_BYTE,
         pngTemp.rgba);
 
+    pngTemp.Decode(upgradefn);
+    glGenTextures(1, &texture_upgrade);
+    glBindTexture(GL_TEXTURE_2D, texture_upgrade);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D,
+        0,// Level of detail
+        GL_RGBA,// the "A" in RGBA will include the transparency
+        pngTemp.wid,// the hippos width and height
+        pngTemp.hei,
+        0,// Border width, but not supported and needs to be 0.
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pngTemp.rgba);
+
+    pngTemp.Decode(removefn);
+    glGenTextures(1, &texture_remove);
+    glBindTexture(GL_TEXTURE_2D, texture_remove);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D,
+        0,// Level of detail
+        GL_RGBA,// the "A" in RGBA will include the transparency
+        pngTemp.wid,// the hippos width and height
+        pngTemp.hei,
+        0,// Border width, but not supported and needs to be 0.
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pngTemp.rgba);
+
+    pngTemp.Decode(backfn);
+    glGenTextures(1, &texture_back);
+    glBindTexture(GL_TEXTURE_2D, texture_back);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D,
+        0,// Level of detail
+        GL_RGBA,// the "A" in RGBA will include the transparency
+        pngTemp.wid,// the hippos width and height
+        pngTemp.hei,
+        0,// Border width, but not supported and needs to be 0.
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pngTemp.rgba);
 }
 
 void drawPng(GLuint texture, loc l, int width, int height) {
     int x = l.x; int y = l.y;
-    
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_TEXTURE_2D);
@@ -129,13 +158,22 @@ void drawPng(GLuint texture, loc l, int width, int height) {
     glDisable(GL_TEXTURE_2D);
 }
 
+void MenuManager::setIndicator(string content) {
+    indicator = content;
+
+}
+
 void MenuManager::managemouse() {
     FsPollDevice();
     int mouseEvent = FsGetMouseEvent(leftButton, middleButton, rightButton, screenX, screenY);
     loc click_loc = { screenX * 1.f, screenY * 1.f };
     if (mouseEvent == FSMOUSEEVENT_LBUTTONDOWN && isLegal(click_loc)) {
+        cout << "inPlaceMode: " << inPlaceMode << endl;
         if (isLegal(click_loc) && !inPlaceMode) {
             selected_tower = getTower(click_loc);
+        }
+        if (isLegal(click_loc) && success && click_loc.x - back_loc.x > 0 && click_loc.x - back_loc.x < button_wid && click_loc.y - back_loc.y > 0 && click_loc.y - back_loc.y < button_hei) {
+            exit = TRUE;
         }
         //mouseEvent = 0;
     }
@@ -143,40 +181,51 @@ void MenuManager::managemouse() {
 }
 
 ToKind  MenuManager::getTower(loc click_loc) {
-    if (!isLegal(click_loc)) {
-        cout << "unable to place tower here" << endl;
-        return NONE;
-    }
-    
-    if (abs(click_loc.x - tower1_loc.x) > 0 && abs(click_loc.x - tower1_loc.x) < tower_wid && abs(click_loc.y - tower1_loc.y) > 0 && abs(click_loc.y - tower1_loc.y) < tower_hei) {
+
+    if (click_loc.x - tower1_loc.x > 0 && click_loc.x - tower1_loc.x < tower_wid && click_loc.y - tower1_loc.y > 0 && click_loc.y - tower1_loc.y < tower_hei) {
         if (gold >= tower1_gold) {
-            cout << "ARROW is chosen" << endl;
+            cout << "Arrow is chosen" << endl;
             inPlaceMode = true;
+            indicator = CHOOSE_ARROW;
             return ARROW;
-        } else {
-            cout << "not enought money for ARROW!" << endl;
+        }
+        else {
+            cout << "Not enought money for ARROW!" << endl;
+            indicator = NOT_ENOUGH_ARROW;
             inPlaceMode = false;
             return NONE;
         }
-    } else if (abs(click_loc.x - tower2_loc.x) > 0 && abs(click_loc.x - tower2_loc.x) < tower_wid && abs(click_loc.y - tower2_loc.y) > 0 && abs(click_loc.y - tower2_loc.y) < tower_hei) {
+    }
+    else if (click_loc.x - tower2_loc.x > 0 && click_loc.x - tower2_loc.x < tower_wid && click_loc.y - tower2_loc.y > 0 && click_loc.y - tower2_loc.y < tower_hei) {
         if (gold >= tower2_gold) {
             cout << "GUN is chosen" << endl;
+            indicator = CHOOSE_GUN;
             inPlaceMode = true;
+            indicator = CHOOSE_GUN;
             return GUN;
-        } else {
-            cout << "not enought money for GUN!" << endl;
+        }
+        else {
+            cout << "Not enought money for GUN!" << endl;
+            indicator = NOT_ENOUGH_GUN;
             inPlaceMode = false;
             return NONE;
         }
     }
-
+    else if (click_loc.x - upgrade_loc.x > 0 && click_loc.x - upgrade_loc.x < button_wid && click_loc.y - upgrade_loc.y > 0 && click_loc.y - upgrade_loc.y < button_hei) {
+        indicator = CHOOSE_UPGRADE;
+        mode = UPGRADE;
+    }
+    else if (click_loc.x - tower2_loc.x > 0 && click_loc.x - remove_loc.x < button_wid && click_loc.y - remove_loc.y > 0 && click_loc.y - remove_loc.y < button_hei) {
+        indicator = CHOOSE_REMOVE;
+        mode = REMOVE;
+    }
     return NONE;
 }
 
 void MenuManager::showMenu() {
     int wid, hei;
     FsGetWindowSize(wid, hei);
-    
+
     glViewport(0, 0, wid, hei);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -191,42 +240,46 @@ void MenuManager::showMenu() {
 
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_tower1, tower1_loc, tower_wid, tower_hei);
-    drawPng(texture_coin, { 880, 240 }, coin_wid/2, coin_hei/2);
+    drawPng(texture_coin, { 880, 240 }, coin_wid / 2, coin_hei / 2);
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(920, 265);
     YsGlDrawFontBitmap12x16(to_string(tower1_gold).c_str());
 
-
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_tower2, tower2_loc, tower_wid, tower_hei);
-    drawPng(texture_coin, { 1030, 240 }, coin_wid/2, coin_hei/2);
+    drawPng(texture_coin, { 1030, 240 }, coin_wid / 2, coin_hei / 2);
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1070, 265);
     YsGlDrawFontBitmap12x16(to_string(tower2_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
-    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
-    drawPng(texture_coin, { 880, 390 }, coin_wid / 2, coin_hei / 2);
-    glColor3d(0.0, 0.0, 0.0);
-    glRasterPos2i(920, 415);
-    YsGlDrawFontBitmap12x16(to_string(tower1_gold).c_str());
-
-    glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_coin, { 950, 80 }, coin_wid, coin_hei);
+
+    if (!success) {
+        glColor3d(1.0, 1.0, 1.0);
+        drawPng(texture_upgrade, upgrade_loc, button_wid, button_hei);
+
+        glColor3d(1.0, 1.0, 1.0);
+        drawPng(texture_remove, remove_loc, button_wid, button_hei);
+    }
+    else {
+        glColor3d(1.0, 1.0, 1.0);
+        drawPng(texture_back, back_loc, button_wid, button_hei);
+    }
+    
 
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1010, 120);  // sets position
     YsGlDrawFontBitmap20x32(to_string(gold).c_str()); // there are other font sizes
 
-    if (selected_tower == ARROW) {
-        glColor3d(0.0, 0.0, 1.0);
-        glRasterPos2i(860, 600);  // sets position
-        YsGlDrawFontBitmap20x32("Arrow is chosen"); // there are other font sizes
-    }else if (selected_tower == GUN) {
-        glColor3d(0.0, 0.0, 1.0);
-        glRasterPos2i(860, 600);  // sets position
-        YsGlDrawFontBitmap20x32("Gun is chosen"); // there are other font sizes
+    if (success) {
+        indicator = YOU_WIN;
     }
+
+    glColor3d(0.0, 0.0, 1.0);
+    glRasterPos2i(860, 600);  // sets position
+    YsGlDrawFontBitmap12x16(indicator.c_str()); // there are other font sizes
+
 }
 
 void MenuManager::accrue(time_t game_time) {
@@ -260,10 +313,12 @@ void MapManager::GLSetup(const char mapfn[]) {
 
 bool MapManager::manage() {
     FsPollDevice();
+    success = game->success();
+    menu->success = success;
     key = FsInkey();
     menu->managemouse();
     manageMouse();
-    
+
     if (inPlaceMode && menu->selected_tower != NONE) {
         if (menu->selected_tower == ARROW) {
             menu->gold -= menu->tower1_gold;
@@ -278,26 +333,8 @@ bool MapManager::manage() {
         menu->selected_tower = NONE;
         inPlaceMode = false;
     }
-    if (inEditMode) {
-        if (key == FSKEY_U) {
-            if (menu->gold < menu->upgrade_gold) {
-                cout << "not enough money to upgrade!" << endl;
-            } else {
-                game->upgradeTower(getTowerPos(click_loc));
-                menu->gold -= menu->upgrade_gold;
-                cout << "tower upgrade!" << endl;
-            }
-            inEditMode = false;
-        } else if (key == FSKEY_D) {
-            int x, y;
-            tie(x, y) = getTowerIdx(click_loc);
-            existtower[x][y] = false;
-            game->removeTower(getTowerPos(click_loc));
-            menu->gold += menu->remove_gold;
-            cout << "tower removed!" << endl;
-            inEditMode = false;
-
-        }
+    if (menu->exit == true) {
+        return false;
     }
     return true;
 }
@@ -307,22 +344,55 @@ void MapManager::manageMouse() {
     FsPollDevice();
     mouseEvent = FsGetMouseEvent(leftButton, middleButton, rightButton, screenX, screenY);
     click_loc = { screenX * 1.f, screenY * 1.f };
-    if (mouseEvent == FSMOUSEEVENT_LBUTTONDOWN && isLegal(click_loc)) {
+    if (menu->mode == UPGRADE && mouseEvent == FSMOUSEEVENT_LBUTTONDOWN && isLegal(click_loc)) {
         int x, y;
         tie(x, y) = getTowerIdx(click_loc);
-        if (existtower[x][y]) {
-            inEditMode = true;
-            cout << "\tChoose:" << endl;
-            cout << "\t\tUpgrade Tower: U" << endl;
-            cout << "\t\tRemove Tower: D" << endl;
-        } else if (isLegal(click_loc) && !existtower[x][y] && menu->inPlaceMode) {
-            existtower[x][y] = true;
+        if (areas[x][y] > 0) {
+
+            if (menu->gold < menu->upgrade_gold) {
+                cout << "not enough money to upgrade!" << endl;
+                menu->indicator = menu->NOT_ENOUGH_UPGRADE;
+            }
+            else {
+                if (areas[x][y] == 3) {
+                    cout << "The tower is of the highest level!" << endl;
+                    menu->indicator = menu->HIGHEST_LEVEL;
+                }
+                else {
+                    areas[x][y] += 1;
+                    game->upgradeTower(getTowerPos(click_loc));
+                    menu->gold -= menu->upgrade_gold;
+                    menu->indicator = menu->TOWER_UPGRADED;
+                    cout << "tower upgrade!" << endl;
+                }
+            }
+            menu->mode = DEFAULT;
+        }
+    }
+    else if (menu->mode == REMOVE && mouseEvent == FSMOUSEEVENT_LBUTTONDOWN && isLegal(click_loc)) {
+        int x, y;
+        tie(x, y) = getTowerIdx(click_loc);
+        if (areas[x][y] > 0) {
+            areas[x][y] = 0;
+            game->removeTower(getTowerPos(click_loc));
+            menu->gold += menu->remove_gold;
+            cout << "tower removed!" << endl;
+            menu->indicator = menu->TOWER_REMOVED;
+            menu->mode = DEFAULT;
+        }
+    }
+
+    if (menu->inPlaceMode && mouseEvent == FSMOUSEEVENT_LBUTTONDOWN && isLegal(click_loc)) {
+        int x, y;
+        tie(x, y) = getTowerIdx(click_loc);
+        if (areas[x][y] == 0) {
+            areas[x][y] = 1;
             inPlaceMode = true;
             menu->inPlaceMode = false;
+            menu->indicator = menu->BUILD_SUCCESS;
         }
-        //mouseEvent = 0;
+
     }
-    return;
 }
 
 tuple<int, int> MapManager::getTowerIdx(loc input_loc) {
@@ -342,53 +412,6 @@ loc MapManager::getTowerPos(loc input_loc) {
     return { x * grid_size + grid_size / 2, y * grid_size + grid_size / 2 };
 }
 
-//void MapManager::editTower(loc click_loc) {
-//    
-//
-//
-//    if (existtower[x_index][y_index]) {
-//        
-//
-//        FsPollDevice();
-//        int key = FsInkey();
-//        if (key == FSKEY_U) {
-//            game->upgradeTower(tower_pos);
-//            return;
-//        } else if (key == FSKEY_D) {
-//            existtower[x_index][y_index] = false;
-//            game->removeTower(tower_pos);
-//
-//            return;
-//        }
-//        key = FSKEY_NULL;
-//
-//        return;
-//    }
-//
-//
-//}
-//
-//loc MapManager::placeTower(loc click_loc) {
-//    if (!isLegal(click_loc)) {
-//        cout << "unable to place tower here" << endl;
-//        return { -INFINITY, -INFINITY };
-//    }
-//
-//    float grid_size = 800.0 / 12;
-//
-//    int x_index = click_loc.x / grid_size;
-//    int y_index = click_loc.y / grid_size;
-//
-//    if (existtower[x_index][y_index]) {
-//        cout << "there is already a tower here" << endl;
-//        return { -INFINITY, -INFINITY };
-//    }
-//
-//    existtower[x_index][y_index] = true;
-//    return { x_index * grid_size + grid_size / 2, y_index * grid_size + grid_size / 2 };
-//    
-//}
-
 void MapManager::showMap() {
     int wid, hei;
     FsGetWindowSize(wid, hei);
@@ -404,4 +427,51 @@ void MapManager::showMap() {
     glColor4d(1.0, 1.0, 1.0, 1.0);
 
     drawPng(texture_map, { 0, 0 }, 800, 800);
+    if (menu->inPlaceMode) {
+        paintAvailableArea();
+    }
+    else if (menu->mode == UPGRADE) {
+        paintUpgradeArea();
+    }
+    else if (menu->mode == REMOVE) {
+        paintRemoveArea();
+    }
+}
+void MapManager::paintAvailableArea() {
+    using namespace DrawingUtilNG;
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 12; j++) {
+            if (areas[i][j] == 0) {
+                glColor3ub(240, 0, 240);
+                drawRectangle(i * grid_size, j * grid_size,
+                    grid_size, grid_size, true);
+            }
+        }
+    }
+}
+
+void MapManager::paintUpgradeArea() {
+    using namespace DrawingUtilNG;
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 12; j++) {
+            if (areas[i][j] > 0 && areas[i][j] < 3) {
+                glColor3ub(240, 0, 240);
+                drawRectangle(i * grid_size, j * grid_size,
+                    grid_size, grid_size, true);
+            }
+        }
+    }
+}
+
+void MapManager::paintRemoveArea() {
+    using namespace DrawingUtilNG;
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 12; j++) {
+            if (areas[i][j] > 0) {
+                glColor3ub(240, 0, 240);
+                drawRectangle(i * grid_size, j * grid_size,
+                    grid_size, grid_size, true);
+            }
+        }
+    }
 }

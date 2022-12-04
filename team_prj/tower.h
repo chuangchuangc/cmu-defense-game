@@ -13,7 +13,7 @@ using namespace std;
 */
 
 enum ToKind {
-	ARROW, GUN,ICE, NONE
+	ARROW, GUN,ICE, NONE, UPGRADE, REMOVE, DEFAULT
 };
 
 class Tower {

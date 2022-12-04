@@ -134,7 +134,9 @@
     <ClInclude Include="fssimplewindow.h" />
     <ClInclude Include="GraphicFont.h" />
     <ClInclude Include="MapManager.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="money.h" />
+    <ClInclude Include="StringPlus.h" />
     <ClInclude Include="tower.h" />
     <ClInclude Include="ysglfontdata.h" />
     <ClInclude Include="yspng.h" />
@@ -148,6 +150,8 @@
     <ClCompile Include="GraphicFont.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="StringPlus.cpp" />
     <ClCompile Include="tower.cpp" />
     <ClCompile Include="ysglfontdata.cpp" />
     <ClCompile Include="yspng.cpp" />

@@ -34,9 +34,6 @@ private:
 	bool fail() {
 		return c->showhealth() <= 0;
 	}
-	bool success() {
-		return (wizard_num <= 0 && orcs_num <= 0 && summ_num <= 0 && enemies.size()<=0);
-	}
 	void enemy_ge() {
 		if (wizard_num>0 && time(NULL) - start == timeInter) {
 			Wizard* w = new Wizard(beg, ts, ds, c);
@@ -210,5 +207,8 @@ public:
 				towers[i]->upgrade();
 			}
 		}
+	}
+	bool success() {
+		return (wizard_num <= 0 && orcs_num <= 0 && summ_num <= 0 && enemies.size() <= 0);
 	}
 };

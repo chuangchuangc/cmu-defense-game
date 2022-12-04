@@ -15,6 +15,10 @@ struct loc {
 	float x;
 	float y;
 };
+struct posi {
+	int x;
+	int y;
+};
 class Cmu {
 private:
 	loc location;
