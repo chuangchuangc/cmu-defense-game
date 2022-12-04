@@ -81,7 +81,7 @@ public:
 	}
 	int showhealth() {
 		if (health > 0) {
-			loc l = { location.x,location.y + 50 };
+			loc l = { location.x,location.y - 15 };
 			float longX = 100;
 			float y = 15;
 			float dis_y = 25;

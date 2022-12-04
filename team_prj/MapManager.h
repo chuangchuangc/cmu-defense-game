@@ -52,7 +52,7 @@ public:
 	string indicator = "Hello world!";
 	bool inPlaceMode = false;
 	ToKind selected_tower = NONE;
-	int gold = 0;
+	int gold = 20;
 	int tower1_gold = 20, tower2_gold = 40,tower3_gold=30;
 	int remove_gold = 10, upgrade_gold = 50;
 	ToKind mode = DEFAULT;

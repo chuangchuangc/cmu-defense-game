@@ -109,6 +109,166 @@ int main() {
 			flag = 0;
 		}
 
+		if (flag == 2) {
+			int gold = 0;
+			time_t start = time(NULL);
+			float gs = 800.0 / 12;
+			vector <direction> ts = { RIGHT,DOWN,RIGHT,DOWN,LEFT,UP };
+			vector <loc> ds = { {gs*8,gs*3},{gs * 8,gs * 4-15},{gs * 10,gs * 4-15},{gs * 10,gs * 10},{gs * 2,gs * 10},{ 2 * gs, 8 * gs } };
+			
+			vector <posi> areas = { };
+			for (int i = 0; i < 12; i++) {
+				areas.push_back({ i,0 });
+			}
+			for (int i = 8; i < 12; i++) {
+				areas.push_back({ i,1 });
+			}
+			for (int i = 10; i < 12; i++) {
+				areas.push_back({ i,2 });
+			}
+			for (int i = 0; i < 7; i++) {
+				areas.push_back({ i,3 });
+			}
+			for (int i = 0; i < 8; i++) {
+				areas.push_back({ i,4 });
+			}
+			for (int i = 0; i < 9; i++) {
+				areas.push_back({ i,5 });
+			}
+			for (int i = 0; i < 9; i++) {
+				areas.push_back({ i,6 });
+			}
+			for (int i = 3; i < 9; i++) {
+				areas.push_back({ i,7 });
+			}
+			for (int i = 3; i < 9; i++) {
+				areas.push_back({ i,8 });
+			}
+			for (int i = 2; i < 12; i++) {
+				areas.push_back({ 11,i });
+			}
+			for (int i = 7; i < 12; i++) {
+				areas.push_back({ 0,i });
+			}
+			for (int i = 0; i < 12; i++) {
+				areas.push_back({ i,11 });
+			}
+			areas.push_back({ 1,10 });
+			GameManager1 game1({ 2*gs, 8*gs }, { -5, gs*2 }, ds, ts, start, 10, 5, 15, 25, 20, 10);
+			MenuManager menu;
+			MapManager map(areas, "map2.png");
+			map.game = &game1; map.menu = &menu;
+			while (map.manage()) {
+				glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+				menu.showMenu();
+				map.showMap();
+				menu.gold += game1.motion();
+				menu.accrue(time(NULL));
+				FsSwapBuffers();
+				// prepare for next loop
+				FsSleep(50);
+			}
+			flag = 0;
+		}
+		if (flag == 3) {
+			int gold = 0;
+			time_t start = time(NULL);
+			float gs = 800.0 / 12;
+			vector <direction> ts = { DOWN,RIGHT,DOWN,RIGHT,DOWN,LEFT,DOWN,LEFT };
+			vector <loc> ds = { {gs*2,gs*2},{gs * 4,gs * 2},{gs * 4,gs * 4-15},{gs * 9,gs * 4-15},{gs * 10,gs * 9},
+			{gs * 3,gs * 9},{ 3 * gs, 11 * gs },{ 1 * gs, 11 * gs } };
+			vector <posi> areas = {  };
+			int j = 0;
+			for (int i = 3; i < 5;i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 0; i < 1; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 4; i < 7; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 0; i < 2; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 6; i < 9; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 1; i < 3; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 8; i < 11; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			
+
+
+			for (int i = 2; i < 5; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 10; i < 12; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 3; i < 6; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 11; i < 12; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 5; i < 8; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 6; i < 9; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+
+			for (int i = 2; i < 5; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 11; i < 12; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 0; i < 2; i++) {
+				areas.push_back({ i,j });
+			}
+			for (int i = 10; i < 12; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 6; i < 11; i++) {
+				areas.push_back({ i,j });
+			}
+			j++;
+			for (int i = 3; i < 10; i++) {
+				areas.push_back({ i,j });
+			}
+			GameManager1 game1({ 1 * gs, 11 * gs }, { 2*gs, -5 }, ds, ts, start, 2, 3, 5, 30, 30, 20);
+			MenuManager menu;
+			MapManager map(areas, "map3.png");
+			map.game = &game1; map.menu = &menu;
+			while (map.manage()) {
+				glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+				menu.showMenu();
+				map.showMap();
+				menu.gold += game1.motion();
+				menu.accrue(time(NULL));
+				FsSwapBuffers();
+				// prepare for next loop
+				FsSleep(50);
+			}
+			flag = 0;
+		}
+
+
 		FsSwapBuffers();
 		// prepare for next loop
 		FsSleep(25);
