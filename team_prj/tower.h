@@ -60,7 +60,7 @@ class GunT : public Tower {
 public:
 	GunT(vector <enemy*> e, loc c) {
 		location = c;
-		attactRange = 200;
+		attactRange = 150;
 		level = 1;
 		attackInterval = 4;
 		damage = 10;
@@ -77,7 +77,7 @@ class IceT : public Tower {
 public:
 	IceT(vector <enemy*> e, loc c) {
 		location = c;
-		attactRange = 200;
+		attactRange = 150;
 		level = 1;
 		attackInterval = 4;
 		damage = 10;

@@ -32,7 +32,6 @@ public:
 	}
 	void underAttact() {
 		health--;
-		cout << health;
 	}
 	void show() {
 		float x = location.x;
@@ -76,6 +75,24 @@ public:
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+		if (health > 0) {
+			showhealth();
+		}
 	}
-	int showhealth() { return health; }
+	int showhealth() {
+		if (health > 0) {
+			loc l = { location.x,location.y + 50 };
+			float longX = 100;
+			float y = 15;
+			float dis_y = 25;
+			float shortX = longX * health / 10;
+			glColor3ub(255, 0, 0);
+			DrawingUtilNG::drawRectangle(l.x - longX / 2, l.y - dis_y,
+				longX, y, true, -1, -1);
+			glColor3ub(0, 255, 0);
+			DrawingUtilNG::drawRectangle(l.x - longX / 2, l.y - dis_y,
+				shortX, y, true, -1, -1);
+		}
+		return health;
+	}
 };

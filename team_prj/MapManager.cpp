@@ -6,7 +6,7 @@
 
 #include "MapManager.h"
 
-void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower1fn[], const char tower2fn[], const char upgradefn[], const char removefn[], const char backfn[]) {
+void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower3fn[], const char tower1fn[], const char tower2fn[], const char upgradefn[], const char removefn[], const char backfn[]) {
     YsRawPngDecoder pngTemp;
 
     pngTemp.Decode(menufn);
@@ -80,6 +80,24 @@ void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char t
         GL_RGBA,
         GL_UNSIGNED_BYTE,
         pngTemp.rgba);
+
+    pngTemp.Decode(tower3fn);
+    glGenTextures(1, &texture_tower3);
+    glBindTexture(GL_TEXTURE_2D, texture_tower3);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D,
+        0,// Level of detail
+        GL_RGBA,// the "A" in RGBA will include the transparency
+        pngTemp.wid,// the hippos width and height
+        pngTemp.hei,
+        0,// Border width, but not supported and needs to be 0.
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pngTemp.rgba);
+
 
     pngTemp.Decode(upgradefn);
     glGenTextures(1, &texture_upgrade);
@@ -172,7 +190,7 @@ void MenuManager::managemouse() {
         if (isLegal(click_loc) && !inPlaceMode) {
             selected_tower = getTower(click_loc);
         }
-        if (isLegal(click_loc) && success && click_loc.x - back_loc.x > 0 && click_loc.x - back_loc.x < button_wid && click_loc.y - back_loc.y > 0 && click_loc.y - back_loc.y < button_hei) {
+        if (isLegal(click_loc) && (success||fail) && click_loc.x - back_loc.x > 0 && click_loc.x - back_loc.x < button_wid && click_loc.y - back_loc.y > 0 && click_loc.y - back_loc.y < button_hei) {
             exit = TRUE;
         }
         //mouseEvent = 0;
@@ -207,6 +225,21 @@ ToKind  MenuManager::getTower(loc click_loc) {
         else {
             cout << "Not enought money for GUN!" << endl;
             indicator = NOT_ENOUGH_GUN;
+            inPlaceMode = false;
+            return NONE;
+        }
+    }
+    else if (click_loc.x - tower3_loc.x > 0 && click_loc.x - tower3_loc.x < tower_wid && click_loc.y - tower3_loc.y > 0 && click_loc.y - tower3_loc.y < tower_hei) {
+        if (gold >= tower3_gold) {
+            cout << "ICE is chosen" << endl;
+            indicator = CHOOSE_ICE;
+            inPlaceMode = true;
+            indicator = CHOOSE_ICE;
+            return ICE;
+        }
+        else {
+            cout << "Not enought money for ICE!" << endl;
+            indicator = NOT_ENOUGH_ICE;
             inPlaceMode = false;
             return NONE;
         }
@@ -246,6 +279,13 @@ void MenuManager::showMenu() {
     YsGlDrawFontBitmap12x16(to_string(tower1_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
+    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
+    drawPng(texture_coin, { 880, 340 }, coin_wid / 2, coin_hei / 2);
+    glColor3d(0.0, 0.0, 0.0);
+    glRasterPos2i(920, 365);
+    YsGlDrawFontBitmap12x16(to_string(tower3_gold).c_str());
+
+    glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_tower2, tower2_loc, tower_wid, tower_hei);
     drawPng(texture_coin, { 1030, 240 }, coin_wid / 2, coin_hei / 2);
     glColor3d(0.0, 0.0, 0.0);
@@ -255,7 +295,7 @@ void MenuManager::showMenu() {
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_coin, { 950, 80 }, coin_wid, coin_hei);
 
-    if (!success) {
+    if ((!success)&&(!fail)) {
         glColor3d(1.0, 1.0, 1.0);
         drawPng(texture_upgrade, upgrade_loc, button_wid, button_hei);
 
@@ -274,6 +314,9 @@ void MenuManager::showMenu() {
 
     if (success) {
         indicator = YOU_WIN;
+    }
+    if (fail) {
+        indicator = YOU_LOSE;
     }
 
     glColor3d(0.0, 0.0, 1.0);
@@ -314,7 +357,9 @@ void MapManager::GLSetup(const char mapfn[]) {
 bool MapManager::manage() {
     FsPollDevice();
     success = game->success();
+    fail = game->fail();
     menu->success = success;
+    menu->fail = fail;
     key = FsInkey();
     menu->managemouse();
     manageMouse();
@@ -325,6 +370,9 @@ bool MapManager::manage() {
         }
         else if (menu->selected_tower == GUN) {
             menu->gold -= menu->tower2_gold;
+        }
+        else if (menu->selected_tower == ICE) {
+            menu->gold -= menu->tower3_gold;
         }
         game->getTower(menu->selected_tower, getTowerPos(click_loc));
         loc tmploc = getTowerPos(click_loc);

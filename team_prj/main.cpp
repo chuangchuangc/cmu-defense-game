@@ -92,7 +92,7 @@ int main() {
 			vector <direction> ts = { UP, LEFT, UP , LEFT, UP, RIGHT, UP, RIGHT, DOWN };
 			vector <loc> ds = { {375, 570}, {305, 570}, {305, 440}, {230, 440}, {230, 235}, {295, 235}, {295, 170}, {570, 170}, {570, 350} };
 			vector <posi> areas = { {2, 3}, {2, 4}, {2, 5}, {2, 6}, {4, 4}, {4, 5}, {5, 3}, {5, 4}, {5, 5}, {5, 6}, {6, 3}, {6, 4}, {6, 5}, {6, 6}, {6, 7}, {6, 8}, {7, 3}, {7, 4}, {7, 7}, {8, 7}, {9, 3}, {9, 4}, {9, 5}, {9, 6} };
-			GameManager1 game1({ 534, 400 }, { 365, 800 }, ds, ts, start, 4, 6, 3);
+			GameManager1 game1({ 534, 400 }, { 365, 800 }, ds, ts, start, 20, 10, 30, 15, 10, 5);
 			MenuManager menu;
 			MapManager map(areas, "map.png");
 			map.game = &game1; map.menu = &menu;

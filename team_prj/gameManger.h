@@ -31,9 +31,7 @@ private:
 	int wizard_num;
 	int orcs_num;
 	int summ_num;
-	bool fail() {
-		return c->showhealth() <= 0;
-	}
+	
 	void enemy_ge() {
 		if (wizard_num>0 && time(NULL) - start == timeInter) {
 			Wizard* w = new Wizard(beg, ts, ds, c);
@@ -131,7 +129,8 @@ private:
 		}
 	}
 public:
-	GameManager1(loc cmuLoc, loc beginLoc, vector <loc> turns, vector <direction> dirs, time_t t, int t2, int t3,int t4) {
+	GameManager1(loc cmuLoc, loc beginLoc, vector <loc> turns, vector <direction> dirs, time_t t, int t2, int t3,int t4,
+	int n1,int n2, int n3) {
 		c = new Cmu(cmuLoc);
 		beg = beginLoc;
 		ds = turns;
@@ -139,9 +138,9 @@ public:
 		start = t;
 		start2 = t;
 		start3 = t;
-		wizard_num = 4;
-		orcs_num = 5;
-		summ_num = 3;
+		wizard_num = n1;
+		orcs_num = n2;
+		summ_num = n3;
 
 		timeInter = t2;
 		timeInter2 = t3;
@@ -157,10 +156,10 @@ public:
 		mo_motion();
 		enemy_ge();
 		if (success()) {
-			cout << "success";
+			//cout << "success";
 		}
 		if (fail()) {
-			cout << "GG";
+			//cout << "GG";
 		}
 		return money;
 	}
@@ -210,5 +209,8 @@ public:
 	}
 	bool success() {
 		return (wizard_num <= 0 && orcs_num <= 0 && summ_num <= 0 && enemies.size() <= 0);
+	}
+	bool fail() {
+		return c->showhealth() <= 0;
 	}
 };

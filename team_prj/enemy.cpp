@@ -169,5 +169,5 @@ void enemy::lowerSpeed() {
 
 void Summoner::show()
 {
-	enemy::showImg("enemy3.png", "enemy3.png", "enemy3.png", "enemy3.png");
+	enemy::showImg("enemy3.png", "enemy3_2.png", "enemy3_3.png", "enemy3_4.png");
 }
