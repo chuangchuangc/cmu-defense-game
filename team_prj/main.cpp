@@ -251,7 +251,7 @@ int main() {
 			for (int i = 3; i < 10; i++) {
 				areas.push_back({ i,j });
 			}
-			GameManager1 game1({ 1 * gs, 11 * gs }, { 2*gs, -5 }, ds, ts, start, 2, 3, 5, 30, 30, 20);
+			GameManager1 game1({ 1 * gs, 11 * gs }, { 2*gs, -5 }, ds, ts, start, 4, 5, 7, 30, 30, 20);
 			MenuManager menu;
 			MapManager map(areas, "map3.png");
 			map.game = &game1; map.menu = &menu;
