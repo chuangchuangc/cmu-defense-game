@@ -79,7 +79,7 @@ void MenuManager::managemouse() {
         if (isLegal(click_loc) && !inPlaceMode) {
             selected_tower = getTower(click_loc);
         }
-        if (isLegal(click_loc) && (success||fail) && abs(click_loc.x - back_loc.x) > 0 && abs(click_loc.x - back_loc.x) < button_wid && abs(click_loc.y - back_loc.y) > 0 && abs(click_loc.y - back_loc.y) < button_hei) {
+        if (isLegal(click_loc) &&  abs(click_loc.x - back_loc.x) > 0 && abs(click_loc.x - back_loc.x) < button_wid && abs(click_loc.y - back_loc.y) > 0 && abs(click_loc.y - back_loc.y) < button_hei) {
             exit = TRUE;
         }
         //mouseEvent = 0;
@@ -190,10 +190,8 @@ void MenuManager::showMenu() {
         glColor3d(1.0, 1.0, 1.0);
         drawPng(texture_remove, remove_loc, button_wid, button_hei);
     }
-    else {
-        glColor3d(1.0, 1.0, 1.0);
-        drawPng(texture_back, back_loc, button_wid, button_hei);
-    }
+    glColor3d(1.0, 1.0, 1.0);
+    drawPng(texture_back, back_loc, button_wid, button_hei);
     
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1010, 120);  // sets position

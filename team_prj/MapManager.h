@@ -34,7 +34,7 @@ public:
 	const string YOU_LOSE = "You Lose";
 protected:
 	loc tower1_loc = { 900, 200 }, tower3_loc = { 900, 300 }, tower2_loc = { 1050, 200 };
-	loc upgrade_loc = { 870, 650 }, remove_loc = { 1030, 650 }, back_loc = { 950, 650 };
+	loc upgrade_loc = { 870, 650 }, remove_loc = { 1030, 650 }, back_loc = { 950, 720 };
 	GLuint texture_menu, texture_coin, texture_tower1, texture_tower3, texture_tower2, texture_upgrade, texture_remove, texture_back;
 	float tower_wid = 67.5, tower_hei = 72.7, button_wid = 120, button_hei = 50;
 	float coin_wid, coin_hei;
