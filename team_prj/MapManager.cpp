@@ -165,12 +165,6 @@ void MenuManager::showMenu() {
     glRasterPos2i(920, 265);
     YsGlDrawFontBitmap12x16(to_string(tower1_gold).c_str());
 
-    glColor3d(1.0, 1.0, 1.0);
-    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
-    drawPng(texture_coin, { 880, 340 }, coin_wid / 2, coin_hei / 2);
-    glColor3d(0.0, 0.0, 0.0);
-    glRasterPos2i(920, 365);
-    YsGlDrawFontBitmap12x16(to_string(tower3_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_tower2, tower2_loc, tower_wid, tower_hei);
@@ -178,6 +172,13 @@ void MenuManager::showMenu() {
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1070, 265);
     YsGlDrawFontBitmap12x16(to_string(tower2_gold).c_str());
+
+    glColor3d(1.0, 1.0, 1.0);
+    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
+    drawPng(texture_coin, { 880, 340 }, coin_wid / 2, coin_hei / 2);
+    glColor3d(0.0, 0.0, 0.0);
+    glRasterPos2i(920, 365);
+    YsGlDrawFontBitmap12x16(to_string(tower3_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_coin, { 950, 80 }, coin_wid, coin_hei);
@@ -194,7 +195,6 @@ void MenuManager::showMenu() {
         drawPng(texture_back, back_loc, button_wid, button_hei);
     }
     
-
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1010, 120);  // sets position
     YsGlDrawFontBitmap20x32(to_string(gold).c_str()); // there are other font sizes
