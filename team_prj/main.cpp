@@ -16,7 +16,7 @@
 //#include "tower.h"
 //#include "cmu.h"
 //#include "bullet.h"
-//#include "gameManger.h"
+//#include "gameManager.h"
 #include "MapManager.h"
 using namespace std;
 /*
