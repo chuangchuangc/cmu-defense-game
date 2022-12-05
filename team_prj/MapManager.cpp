@@ -190,7 +190,7 @@ void MenuManager::managemouse() {
         if (isLegal(click_loc) && !inPlaceMode) {
             selected_tower = getTower(click_loc);
         }
-        if (isLegal(click_loc) && (success||fail) && click_loc.x - back_loc.x > 0 && click_loc.x - back_loc.x < button_wid && click_loc.y - back_loc.y > 0 && click_loc.y - back_loc.y < button_hei) {
+        if (isLegal(click_loc) && (success||fail) && abs(click_loc.x - back_loc.x) > 0 && abs(click_loc.x - back_loc.x) < button_wid && abs(click_loc.y - back_loc.y) > 0 && abs(click_loc.y - back_loc.y) < button_hei) {
             exit = TRUE;
         }
         //mouseEvent = 0;
@@ -200,7 +200,7 @@ void MenuManager::managemouse() {
 
 ToKind  MenuManager::getTower(loc click_loc) {
 
-    if (click_loc.x - tower1_loc.x > 0 && click_loc.x - tower1_loc.x < tower_wid && click_loc.y - tower1_loc.y > 0 && click_loc.y - tower1_loc.y < tower_hei) {
+    if (abs(click_loc.x - tower1_loc.x) > 0 && abs(click_loc.x - tower1_loc.x) < tower_wid && abs(click_loc.y - tower1_loc.y) > 0 && abs(click_loc.y - tower1_loc.y) < tower_hei) {
         if (gold >= tower1_gold) {
             cout << "Arrow is chosen" << endl;
             inPlaceMode = true;
@@ -214,7 +214,7 @@ ToKind  MenuManager::getTower(loc click_loc) {
             return NONE;
         }
     }
-    else if (click_loc.x - tower2_loc.x > 0 && click_loc.x - tower2_loc.x < tower_wid && click_loc.y - tower2_loc.y > 0 && click_loc.y - tower2_loc.y < tower_hei) {
+    else if (abs(click_loc.x - tower2_loc.x) > 0 && abs(click_loc.x - tower2_loc.x) < tower_wid && abs(click_loc.y - tower2_loc.y) > 0 && abs(click_loc.y - tower2_loc.y) < tower_hei) {
         if (gold >= tower2_gold) {
             cout << "GUN is chosen" << endl;
             indicator = CHOOSE_GUN;
@@ -229,7 +229,7 @@ ToKind  MenuManager::getTower(loc click_loc) {
             return NONE;
         }
     }
-    else if (click_loc.x - tower3_loc.x > 0 && click_loc.x - tower3_loc.x < tower_wid && click_loc.y - tower3_loc.y > 0 && click_loc.y - tower3_loc.y < tower_hei) {
+    else if (abs(click_loc.x - tower3_loc.x) > 0 && abs(click_loc.x - tower3_loc.x) < tower_wid && abs(click_loc.y - tower3_loc.y) > 0 && abs(click_loc.y - tower3_loc.y) < tower_hei) {
         if (gold >= tower3_gold) {
             cout << "ICE is chosen" << endl;
             indicator = CHOOSE_ICE;
@@ -244,11 +244,11 @@ ToKind  MenuManager::getTower(loc click_loc) {
             return NONE;
         }
     }
-    else if (click_loc.x - upgrade_loc.x > 0 && click_loc.x - upgrade_loc.x < button_wid && click_loc.y - upgrade_loc.y > 0 && click_loc.y - upgrade_loc.y < button_hei) {
+    else if (abs(click_loc.x - upgrade_loc.x) > 0 && abs(click_loc.x - upgrade_loc.x) < button_wid && abs(click_loc.y - upgrade_loc.y) > 0 && abs(click_loc.y - upgrade_loc.y) < button_hei) {
         indicator = CHOOSE_UPGRADE;
         mode = UPGRADE;
     }
-    else if (click_loc.x - tower2_loc.x > 0 && click_loc.x - remove_loc.x < button_wid && click_loc.y - remove_loc.y > 0 && click_loc.y - remove_loc.y < button_hei) {
+    else if (abs(click_loc.x - tower2_loc.x) > 0 && abs(click_loc.x - remove_loc.x) < button_wid && abs(click_loc.y - remove_loc.y) > 0 && abs(click_loc.y - remove_loc.y) < button_hei) {
         indicator = CHOOSE_REMOVE;
         mode = REMOVE;
     }
