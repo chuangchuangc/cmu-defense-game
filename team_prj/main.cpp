@@ -32,7 +32,19 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 
 int main() {
 	FsOpenWindow(16, 16, 1200, 800, 1, "CMU Defense!");
+	YsSoundPlayer player;
+	YsSoundPlayer::SoundData myWav;
 
+	char filename[] = "highoctane.wav";
+	if (YSOK != myWav.LoadWav(filename)) //load file contents to wav variable
+	{
+		cout << "Failed to read: " << filename << endl;
+		return 1;
+	}
+
+
+	player.Start();
+	player.PlayBackground(myWav);
 
 	int key = FSKEY_NULL;
 	int mouseEvent, leftButton, middleButton, rightButton, locX, locY;
