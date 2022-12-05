@@ -3,8 +3,8 @@
 Include the start and setting button.
 When players click start, players can select the level to play.
 
-## When game start, there will be 3 kinds of enemy to attack the basement:
-Wizard:when it's health is below 1/4, it will become invisible and get a shell, and `Arrow Tower` won't attack it, but the `Gun Tower` can attack it.
+## When game start, there will be 3 kinds of enemy to attack the base:
+Wizard:when its health is below 1/4, it will become invisible and get a shell, and `Arrow Tower` won't attack it, but the `Gun Tower` can attack it.
 Orcs: when its health is less than 1/2 and larger than 1/4, it will run and move faster.
 Summoner: When it’s dead, it will summon two Orcs in the place where it’s dead.
 After killing enemies, they will become the gold coin and players can get money.
@@ -20,5 +20,5 @@ Players can select a location to place a tower with enough money.
 Players can upgrade a tower with enough money. 
 Players can remove towers and get money.
 ## Game ending:
-When all enemies are killed, it will show success. When the health of the basement is 0, it will show failure. Players can start again and choose other levels to play.
+When all enemies are killed, it will show success. When the health of the base is 0, it will show failure. Players can start again and choose other levels to play.
 
