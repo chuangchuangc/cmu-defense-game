@@ -45,8 +45,8 @@ protected:
 	void GLSetup(const char menufn[], const char coinfn[], const char tower3fn[], const char tower1fn[], const char tower2fn[], const char upgradefn[], const char removefn[], const char backfn[]);
 
 public:
-	MenuManager(const char menufn[] = "menu.png", const char coinfn[] = "money.png", const char tower3fn[] = "tower3.png", const char tower1fn[] = "tower1.png", const char tower2fn[] = "tower2.png", const char upgradefn[] = "Upgrade.png", const char removefn[] = "Remove.png", const char backfn[] = "Back.png") {
-		GLSetup(menufn, coinfn,tower3fn, tower1fn, tower2fn, upgradefn, removefn, backfn);
+	MenuManager(const char menufn[] = "menu.png", const char coinfn[] = "money.png", const char tower1fn[] = "tower1.png", const char tower2fn[] = "tower2.png", const char tower3fn[] = "tower3.png", const char upgradefn[] = "Upgrade.png", const char removefn[] = "Remove.png", const char backfn[] = "Back.png") {
+		GLSetup(menufn, coinfn, tower1fn, tower2fn, tower3fn, upgradefn, removefn, backfn);
 		prev_time = time(NULL);
 	}
 	string indicator = "Hello world!";

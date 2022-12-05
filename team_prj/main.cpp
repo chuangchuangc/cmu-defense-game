@@ -11,12 +11,13 @@
 #include "yspng.h"
 #include "menu.h"
 #include "GraphicFont.h"
+#include "show_all.h"
 
 //#include "enemy.h"
 //#include "tower.h"
 //#include "cmu.h"
 //#include "bullet.h"
-//#include "gameManger.h"
+//#include "gameManager.h"
 #include "MapManager.h"
 using namespace std;
 /*
@@ -31,9 +32,18 @@ using namespace std;
 void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int wid);
 
 int main() {
-	FsOpenWindow(16, 16, 1200, 800, 1, "Demo");
+	FsOpenWindow(16, 16, 1200, 800, 1, "CMU Defense!");
+	YsSoundPlayer player;
+	YsSoundPlayer::SoundData myWav;
 
+	char filename[] = "buddy.wav";
+	if (YSOK != myWav.LoadWav(filename)) //load file contents to wav variable
+	{
+		cout << "Failed to read: " << filename << endl;
+		return 1;
+	}
 
+	//
 	int key = FSKEY_NULL;
 	int mouseEvent, leftButton, middleButton, rightButton, locX, locY;
 	ButtonCollection* myButtons = new ButtonCollection; // put this AFTER FsOpenWindow()
@@ -42,6 +52,7 @@ int main() {
 	buttonFont->setColorRGB(0, 0, 0); // black
 	addButtons(*myButtons, buttonFont, 350, 100);
 	cout << time(NULL);
+
 
 
 	int flag = 0;
@@ -64,11 +75,12 @@ int main() {
 		}
 		myButtons->showImg(0, 0, 1200, 800, "start_background.png");
 
-		myButtons->paint();
-		myButtons->showImg(550, 400, 110, 30, "esay.png");
+	
+		myButtons->showImg(550, 400, 110, 30, "easy.png");
 		myButtons->showImg(550, 440, 110, 30, "normal.png");
 		myButtons->showImg(550, 480, 110, 30, "hard.png");
 		myButtons->showImg(550, 520, 110, 30, "exit.png");
+		myButtons->showImg(550, 360, 110, 30, "show_all.png");
 
 
 
@@ -84,6 +96,9 @@ int main() {
 			break;
 		case FSKEY_4:
 			flag = 4;
+			break;
+		case FSKEY_S:
+			flag = 5;
 			break;
 		}
 
@@ -276,7 +291,6 @@ int main() {
 	}
 
 	
-
 	delete myButtons;
 	delete buttonFont;
 	return 0;
@@ -286,19 +300,17 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 {
 	int hei = 30;
 	int spacing = 10;
-	int currY = 400;
+	int currY = 400-40;
 
 
 	someButtons.add(550, currY, wid, hei, FSKEY_1, "easy", aFont,
 		"");
 
 	currY += hei + spacing;
-	someButtons.add(550, currY, wid, hei, FSKEY_2, "noamal", aFont,
-		"");
+	someButtons.add(550, currY, wid, hei, FSKEY_2, "noamal", aFont, "");
 
 	currY += hei + spacing;
-	someButtons.add(550, currY, wid, hei, FSKEY_3, "hard", aFont,
-		"");
+	someButtons.add(550, currY, wid, hei, FSKEY_3, "hard", aFont, "");
 
 	currY += hei + spacing;
 	someButtons.add(550, currY, wid, hei, FSKEY_ESC, "exit", aFont,

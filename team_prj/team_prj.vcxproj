@@ -136,6 +136,7 @@
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="money.h" />
+    <ClInclude Include="show_all.h" />
     <ClInclude Include="StringPlus.h" />
     <ClInclude Include="tower.h" />
     <ClInclude Include="ysglfontdata.h" />
