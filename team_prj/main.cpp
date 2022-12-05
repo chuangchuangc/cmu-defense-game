@@ -35,7 +35,7 @@ int main() {
 	YsSoundPlayer player;
 	YsSoundPlayer::SoundData myWav;
 
-	char filename[] = "highoctane.wav";
+	char filename[] = "buddy.wav";
 	if (YSOK != myWav.LoadWav(filename)) //load file contents to wav variable
 	{
 		cout << "Failed to read: " << filename << endl;
