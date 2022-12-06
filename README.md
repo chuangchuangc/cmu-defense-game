@@ -2,9 +2,11 @@
 ## Main Menu
 Include the Atlas and 3 levels buttons.
 
-![](/team_prj/enemy1.1.png)
+![](/team_prj/r1.png)
 
-When players click , players can select the level to play.
+When players click Atlas ![](/team_prj/show_all.png), it will show all towers and enemies.
+
+![](/team_prj/r2.png)
 
 ## When game start, there will be 3 kinds of enemy to attack the base:
 Wizard:
