@@ -10,11 +10,17 @@ When players click Atlas ![](/team_prj/show_all.png), it will show all towers an
 
 Each level has it's map:
 
-Easy:![](/team_prj/map.png)
+Easy:
 
-Normal:![](/team_prj/map2.png)
+![](/team_prj/map.png)
 
-Hard:![](/team_prj/map3.png)
+Normal:
+
+![](/team_prj/map2.png)
+
+Hard:
+
+![](/team_prj/map3.png)
 
 ## When game start, there will be 3 kinds of enemy to attack the base:
 Wizard:![](/team_prj/enemy1.1.png)
