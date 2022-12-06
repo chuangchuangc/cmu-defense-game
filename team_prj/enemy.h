@@ -64,7 +64,7 @@ public:
 	Wizard(loc start,vector <direction> d, vector <loc> c,Cmu* b):enemy(start,d,c,b) {
 		health = 100;
 		max_health = health;
-		speed = 2;
+		speed = 2.5;
 		type = WIZARD;
 	}
 	void show();
@@ -83,7 +83,7 @@ public:
 	Orcs(loc start, vector <direction> d, vector <loc> c,Cmu*b) :enemy(start, d, c,b) {
 		health = 200;
 		max_health = health;
-		speed = 1.5;
+		speed = 2;
 		type = ORCS;
 	}
 	void skill() {
@@ -99,7 +99,7 @@ public:
 	Summoner(loc start, vector <direction> d, vector <loc> c, Cmu* b) :enemy(start, d, c, b) {
 		health = 400;
 		max_health = health;
-		speed = 1.2;
+		speed = 2;
 		type = SUMM;
 	}
 	void skill() {
