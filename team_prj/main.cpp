@@ -56,7 +56,8 @@ int main() {
 
 
 	int flag = 0;
-
+	player.Start();
+	player.PlayBackground(myWav);
 	while (flag != 4) {
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		FsPollDevice();
@@ -94,7 +95,7 @@ int main() {
 		case FSKEY_3:
 			flag = 3;
 			break;
-		case FSKEY_4:
+		case FSKEY_ESC:
 			flag = 4;
 			break;
 		case FSKEY_S:
@@ -300,7 +301,7 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 {
 	int hei = 30;
 	int spacing = 10;
-	int currY = 400-40;
+	int currY = 400;
 
 
 	someButtons.add(550, currY, wid, hei, FSKEY_1, "easy", aFont,
