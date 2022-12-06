@@ -6,149 +6,38 @@
 
 #include "MapManager.h"
 
-void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower3fn[], const char tower1fn[], const char tower2fn[], const char upgradefn[], const char removefn[], const char backfn[]) {
+void set_texture(YsRawPngDecoder& pngTemp, const char pngname[], GLuint& png_texture) {
+    pngTemp.Decode(pngname);
+    glGenTextures(1, &png_texture);
+    glBindTexture(GL_TEXTURE_2D, png_texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D,
+        0,// Level of detail
+        GL_RGBA,// the "A" in RGBA will include the transparency
+        pngTemp.wid,// the hippos width and height
+        pngTemp.hei,
+        0,// Border width, but not supported and needs to be 0.
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        pngTemp.rgba);
+}
+
+void MenuManager::GLSetup(const char menufn[], const char coinfn[], const char tower1fn[], const char tower2fn[], const char tower3fn[], const char upgradefn[], const char removefn[], const char backfn[]) {
     YsRawPngDecoder pngTemp;
-
-    pngTemp.Decode(menufn);
-    glGenTextures(1, &texture_menu);
-    glBindTexture(GL_TEXTURE_2D, texture_menu);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
-    pngTemp.Decode(coinfn);
-    glGenTextures(1, &texture_coin);
-    glBindTexture(GL_TEXTURE_2D, texture_coin);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
+;
+    set_texture(pngTemp, menufn, texture_menu);
+    set_texture(pngTemp, coinfn, texture_coin);
     coin_wid = pngTemp.wid; coin_hei = pngTemp.hei;
-
-    pngTemp.Decode(tower1fn);
-    glGenTextures(1, &texture_tower1);
-    glBindTexture(GL_TEXTURE_2D, texture_tower1);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
+    set_texture(pngTemp, tower1fn, texture_tower1);
     tower_wid = pngTemp.wid; tower_hei = pngTemp.hei;
-
-    pngTemp.Decode(tower2fn);
-    glGenTextures(1, &texture_tower2);
-    glBindTexture(GL_TEXTURE_2D, texture_tower2);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
-    pngTemp.Decode(tower3fn);
-    glGenTextures(1, &texture_tower3);
-    glBindTexture(GL_TEXTURE_2D, texture_tower3);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
-
-    pngTemp.Decode(upgradefn);
-    glGenTextures(1, &texture_upgrade);
-    glBindTexture(GL_TEXTURE_2D, texture_upgrade);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
-    pngTemp.Decode(removefn);
-    glGenTextures(1, &texture_remove);
-    glBindTexture(GL_TEXTURE_2D, texture_remove);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
-
-    pngTemp.Decode(backfn);
-    glGenTextures(1, &texture_back);
-    glBindTexture(GL_TEXTURE_2D, texture_back);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0.
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
+    set_texture(pngTemp, tower2fn, texture_tower2);
+    set_texture(pngTemp, tower3fn, texture_tower3);
+    set_texture(pngTemp, upgradefn, texture_upgrade);
+    set_texture(pngTemp, removefn, texture_remove);
+    set_texture(pngTemp, backfn, texture_back);
 }
 
 void drawPng(GLuint texture, loc l, int width, int height) {
@@ -219,7 +108,6 @@ ToKind  MenuManager::getTower(loc click_loc) {
             cout << "GUN is chosen" << endl;
             indicator = CHOOSE_GUN;
             inPlaceMode = true;
-            indicator = CHOOSE_GUN;
             return GUN;
         }
         else {
@@ -234,7 +122,6 @@ ToKind  MenuManager::getTower(loc click_loc) {
             cout << "ICE is chosen" << endl;
             indicator = CHOOSE_ICE;
             inPlaceMode = true;
-            indicator = CHOOSE_ICE;
             return ICE;
         }
         else {
@@ -278,12 +165,6 @@ void MenuManager::showMenu() {
     glRasterPos2i(920, 265);
     YsGlDrawFontBitmap12x16(to_string(tower1_gold).c_str());
 
-    glColor3d(1.0, 1.0, 1.0);
-    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
-    drawPng(texture_coin, { 880, 340 }, coin_wid / 2, coin_hei / 2);
-    glColor3d(0.0, 0.0, 0.0);
-    glRasterPos2i(920, 365);
-    YsGlDrawFontBitmap12x16(to_string(tower3_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_tower2, tower2_loc, tower_wid, tower_hei);
@@ -291,6 +172,13 @@ void MenuManager::showMenu() {
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1070, 265);
     YsGlDrawFontBitmap12x16(to_string(tower2_gold).c_str());
+
+    glColor3d(1.0, 1.0, 1.0);
+    drawPng(texture_tower3, tower3_loc, tower_wid, tower_hei);
+    drawPng(texture_coin, { 880, 340 }, coin_wid / 2, coin_hei / 2);
+    glColor3d(0.0, 0.0, 0.0);
+    glRasterPos2i(920, 365);
+    YsGlDrawFontBitmap12x16(to_string(tower3_gold).c_str());
 
     glColor3d(1.0, 1.0, 1.0);
     drawPng(texture_coin, { 950, 80 }, coin_wid, coin_hei);
@@ -307,7 +195,6 @@ void MenuManager::showMenu() {
         drawPng(texture_back, back_loc, button_wid, button_hei);
     }
     
-
     glColor3d(0.0, 0.0, 0.0);
     glRasterPos2i(1010, 120);  // sets position
     YsGlDrawFontBitmap20x32(to_string(gold).c_str()); // there are other font sizes
@@ -336,22 +223,7 @@ void MenuManager::accrue(time_t game_time) {
 
 void MapManager::GLSetup(const char mapfn[]) {
     YsRawPngDecoder pngTemp;
-    pngTemp.Decode(mapfn);
-    glGenTextures(1, &texture_map);
-    glBindTexture(GL_TEXTURE_2D, texture_map);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,// Level of detail
-        GL_RGBA,// the "A" in RGBA will include the transparency
-        pngTemp.wid,// the hippos width and height
-        pngTemp.hei,
-        0,// Border width, but not supported and needs to be 0
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        pngTemp.rgba);
+    set_texture(pngTemp, mapfn, texture_map);
 }
 
 bool MapManager::manage() {
