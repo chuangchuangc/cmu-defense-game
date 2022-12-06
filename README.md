@@ -1,7 +1,10 @@
 # cmu-defense-game
 ## Main Menu
-Include the start and setting button.
-When players click start, players can select the level to play.
+Include the Atlas and 3 levels buttons.
+
+![]("tem_prj/enemy1.1.png")
+
+When players click , players can select the level to play.
 
 ## When game start, there will be 3 kinds of enemy to attack the base:
 Wizard:
