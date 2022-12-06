@@ -78,8 +78,8 @@ int main() {
 		}
 		myButtons->showImg(0, 0, 1200, 800, "start_background.png");
 
-		myButtons->paint();
-		myButtons->showImg(550, 400, 110, 30, "esay.png");
+	
+		myButtons->showImg(550, 400, 110, 30, "easy.png");
 		myButtons->showImg(550, 440, 110, 30, "normal.png");
 		myButtons->showImg(550, 480, 110, 30, "hard.png");
 		myButtons->showImg(550, 520, 110, 30, "exit.png");
