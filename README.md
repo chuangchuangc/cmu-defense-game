@@ -1,10 +1,16 @@
 # cmu-defense-game
 ## Main Menu
-Include the start and setting button.
-When players click start, players can select the level to play.
+Include the Atlas and 3 levels buttons.
+
+![](/team_prj/r1.png)
+
+When players click Atlas ![](/team_prj/show_all.png), it will show all towers and enemies.
+
+![](/team_prj/r2.png)
 
 ## When game start, there will be 3 kinds of enemy to attack the base:
-Wizard:when its health is below 1/4, it will become invisible and get a shell, and `Arrow Tower` won't attack it, but the `Gun Tower` can attack it.
+Wizard:
+when its health is below 1/4, it will become invisible and get a shell, and `Arrow Tower` won't attack it, but the `Gun Tower` can attack it.
 Orcs: when its health is less than 1/2 and larger than 1/4, it will run and move faster.
 Summoner: When it’s dead, it will summon two Orcs in the place where it’s dead.
 After killing enemies, they will become the gold coin and players can get money.
