@@ -38,9 +38,15 @@ can make all enemies move slower.
 The tower can be upgraded and removed.
 ## Players’s action:
 With time passing by, the player will get increased money to build and update the tower.
+
 Players can select a location to place a tower with enough money. 
+
 Players can upgrade a tower with enough money. 
+
 Players can remove towers and get money.
+
 ## Game ending:
-When all enemies are killed, it will show success. When the health of the base is 0, it will show failure. Players can start again and choose other levels to play.
+When all enemies are killed, it will show success. 
+
+When the health of the base is 0, it will show failure. Players can start again and choose other levels to play.
 
