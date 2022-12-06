@@ -23,11 +23,17 @@ When it’s dead, it will summon two Orcs in the place where it’s dead.
 After killing enemies, they will become the gold coin and players can get money.
 
 ## Towers to build:
-Arrow Tower can only attack one nearest enemy. The speed is faster than Gun tower and you can't attack wizards with shells.
+Arrow Tower:![](/team_prj/tower1.png)![](/team_prj/tower1.2.png)![](/team_prj/tower1.3.png)
 
-Gun Tower can attack all enemies in range at a lower speed, and can attack wizards with shells.
+can only attack one nearest enemy. The speed is faster than Gun tower and you can't attack wizards with shells.
 
-Ice Tower can make all enemies move slower.
+Gun Tower:![](/team_prj/tower2.png)![](/team_prj/tower2.2.png)![](/team_prj/tower2.3.png)
+
+can attack all enemies in range at a lower speed, and can attack wizards with shells.
+
+Ice Tower:![](/team_prj/tower3.png)![](/team_prj/tower3.2.png)![](/team_prj/tower3.3.png)
+
+can make all enemies move slower.
 
 The tower can be upgraded and removed.
 ## Players’s action:
