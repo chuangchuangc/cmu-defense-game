@@ -53,11 +53,19 @@ The tower can be upgraded and removed.
 ## Players’s action:
 With time passing by, the player will get increased money to build and update the tower.
 
+![](/team_prj/r3.png)
+
 Players can select a location to place a tower with enough money. 
+
+![](/team_prj/r4.png)
 
 Players can upgrade a tower with enough money. 
 
+![](/team_prj/r5.png)
+
 Players can remove towers and get money.
+
+![](/team_prj/r6.png)
 
 ## Game ending:
 When all enemies are killed, it will show success. 
