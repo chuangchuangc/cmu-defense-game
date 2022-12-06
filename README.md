@@ -71,7 +71,6 @@ Players can remove towers and get money.
 When all enemies are killed, it will show success. 
 
 ![](/team_prj/r8.png)
-![](/team_prj/r7.png)
 
 When the health of the base is 0, it will show failure. Players can start again and choose other levels to play.
 
