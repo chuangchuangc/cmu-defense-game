@@ -152,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="show_all.cpp" />
     <ClCompile Include="StringPlus.cpp" />
     <ClCompile Include="tower.cpp" />
     <ClCompile Include="ysglfontdata.cpp" />

@@ -45,7 +45,7 @@ public:
 		location = c;
 		attactRange = 150;
 		level = 1;
-		attackInterval = 2;
+		attackInterval = 6;
 		damage = 10;
 		enemies = e;
 		attackCount = 0;
@@ -62,7 +62,7 @@ public:
 		location = c;
 		attactRange = 150;
 		level = 1;
-		attackInterval = 4;
+		attackInterval = 10;
 		damage = 10;
 		enemies = e;
 		attackCount = 0;

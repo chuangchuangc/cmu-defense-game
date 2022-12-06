@@ -20,13 +20,7 @@
 //#include "gameManager.h"
 #include "MapManager.h"
 using namespace std;
-/*
-* full name: Chuang Ma
-* date: Nov. 16, 2022
-* andrew ID: chuangm
-* course: 24780 B
-* description: Class for testing.
-*/
+
 
 
 void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int wid);
@@ -285,6 +279,18 @@ int main() {
 			flag = 0;
 		}
 
+		if (flag == 5) {
+			Show show;
+			bool exit_flag = true;
+			while (exit_flag) {
+				glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+				exit_flag = !show.manage();
+				FsSwapBuffers();
+				// prepare for next loop
+				FsSleep(50);
+			}
+			flag = 0;
+		}
 
 		FsSwapBuffers();
 		// prepare for next loop
@@ -301,8 +307,12 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 {
 	int hei = 30;
 	int spacing = 10;
-	int currY = 400;
+	int currY = 400-40;
 
+	someButtons.add(550, currY, wid, hei, FSKEY_S, "show", aFont,
+		"");
+
+	currY += hei + spacing;
 
 	someButtons.add(550, currY, wid, hei, FSKEY_1, "easy", aFont,
 		"");
