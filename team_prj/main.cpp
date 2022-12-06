@@ -34,7 +34,6 @@ int main() {
 	FsOpenWindow(16, 16, 1200, 800, 1, "Demo");
 
 
-	//
 	int key = FSKEY_NULL;
 	int mouseEvent, leftButton, middleButton, rightButton, locX, locY;
 	ButtonCollection* myButtons = new ButtonCollection; // put this AFTER FsOpenWindow()
@@ -42,9 +41,11 @@ int main() {
 	GraphicFont* buttonFont = new ComicSansFont;
 	buttonFont->setColorRGB(0, 0, 0); // black
 	addButtons(*myButtons, buttonFont, 350, 100);
+	cout << time(NULL);
 
 
 	int flag = 0;
+
 	while (flag != 4) {
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		FsPollDevice();
@@ -92,7 +93,7 @@ int main() {
 			vector <direction> ts = { UP, LEFT, UP , LEFT, UP, RIGHT, UP, RIGHT, DOWN };
 			vector <loc> ds = { {375, 570}, {305, 570}, {305, 440}, {230, 440}, {230, 235}, {295, 235}, {295, 170}, {570, 170}, {570, 350} };
 			vector <posi> areas = { {2, 3}, {2, 4}, {2, 5}, {2, 6}, {4, 4}, {4, 5}, {5, 3}, {5, 4}, {5, 5}, {5, 6}, {6, 3}, {6, 4}, {6, 5}, {6, 6}, {6, 7}, {6, 8}, {7, 3}, {7, 4}, {7, 7}, {8, 7}, {9, 3}, {9, 4}, {9, 5}, {9, 6} };
-			GameManager1 game1({ 534, 400 }, { 365, 800 }, ds, ts, start, 20, 10, 30, 15, 10, 5);
+			GameManager1 game1({ 534, 400 }, { 365, 800 }, ds, ts, start, 20, 20, 30, 10, 15,5);
 			MenuManager menu;
 			MapManager map(areas, "map.png");
 			map.game = &game1; map.menu = &menu;
@@ -154,7 +155,7 @@ int main() {
 				areas.push_back({ i,11 });
 			}
 			areas.push_back({ 1,10 });
-			GameManager1 game1({ 2*gs, 8*gs }, { -5, gs*2 }, ds, ts, start, 10, 5, 15, 25, 20, 10);
+			GameManager1 game1({ 2*gs, 8*gs }, { -5, gs*2 }, ds, ts, start, 15, 15, 20, 25, 20, 10);
 			MenuManager menu;
 			MapManager map(areas, "map2.png");
 			map.game = &game1; map.menu = &menu;
@@ -251,7 +252,7 @@ int main() {
 			for (int i = 3; i < 10; i++) {
 				areas.push_back({ i,j });
 			}
-			GameManager1 game1({ 1 * gs, 11 * gs }, { 2*gs, -5 }, ds, ts, start, 4, 5, 7, 30, 30, 20);
+			GameManager1 game1({ 1 * gs, 11 * gs }, { 2*gs, -5 }, ds, ts, start, 10, 10, 15, 20, 20, 15);
 			MenuManager menu;
 			MapManager map(areas, "map3.png");
 			map.game = &game1; map.menu = &menu;

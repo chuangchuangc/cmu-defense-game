@@ -31,8 +31,23 @@ private:
 	int wizard_num;
 	int orcs_num;
 	int summ_num;
+	int intervalCount = 50;
 	
 	void enemy_ge() {
+		intervalCount--;
+		if (intervalCount <= 0) {
+			intervalCount = 500;
+			if (timeInter > 5) {
+				timeInter--;
+			}
+			if (timeInter2 > 5) {
+				timeInter2--;
+			}
+			if (timeInter3 > 5) {
+				timeInter3--;
+			}
+		}
+
 		if (wizard_num>0 && time(NULL) - start == timeInter) {
 			Wizard* w = new Wizard(beg, ts, ds, c);
 			enemies.push_back(w);
@@ -148,7 +163,10 @@ public:
 
 		
 
+		
+
 	}
+
 	int motion() {
 		c->show();
 		int money = en_motion();
@@ -163,6 +181,7 @@ public:
 		}
 		return money;
 	}
+
 	void getTower(ToKind t,loc c ) {
 		switch (t)
 		{

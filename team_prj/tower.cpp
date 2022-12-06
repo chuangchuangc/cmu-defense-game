@@ -69,7 +69,7 @@ void IceT::checkenemy() {
 		float dy = l.y - location.y;
 		float dis = pow(dx, 2) + pow(dy, 2);
 		if (dis < pow(attactRange, 2)) {
-			if (enemies[i]->getSpeed() > 1) {
+			if (enemies[i]->getSpeed() > 1.5) {
 				enemies[i]->lowerSpeed();
 			}
 			

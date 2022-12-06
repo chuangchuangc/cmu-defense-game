@@ -9,7 +9,7 @@
 //#include "enemy.h"
 //#include "tower.h"
 #include <iostream>
-#include "gameManger.h"
+#include "gameManager.h"
 
 void drawPng(GLuint texture, loc l, int width, int height);
 class MenuManager {
