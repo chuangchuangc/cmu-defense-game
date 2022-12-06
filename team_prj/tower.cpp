@@ -148,8 +148,8 @@ void Tower::upgrade() {
 		return;
 	}
 	level += 1;
-	attackInterval -= 1;
-	attactRange *= 1.3;
-	damage *= 1.5;
+	attackInterval *=0.8;
+	attactRange *= 1.2;
+	damage *= 1.2;
 
 }

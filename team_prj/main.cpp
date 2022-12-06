@@ -11,6 +11,7 @@
 #include "yspng.h"
 #include "menu.h"
 #include "GraphicFont.h"
+#include "show_all.h"
 
 //#include "enemy.h"
 //#include "tower.h"
@@ -41,7 +42,7 @@ int main() {
 	GraphicFont* buttonFont = new ComicSansFont;
 	buttonFont->setColorRGB(0, 0, 0); // black
 	addButtons(*myButtons, buttonFont, 350, 100);
-	cout << time(NULL);
+
 
 
 	int flag = 0;
@@ -64,11 +65,12 @@ int main() {
 		}
 		myButtons->showImg(0, 0, 1200, 800, "start_background.png");
 
-		myButtons->paint();
+		
 		myButtons->showImg(550, 400, 110, 30, "esay.png");
 		myButtons->showImg(550, 440, 110, 30, "normal.png");
 		myButtons->showImg(550, 480, 110, 30, "hard.png");
 		myButtons->showImg(550, 520, 110, 30, "exit.png");
+		myButtons->showImg(550, 360, 110, 30, "show_all.png");
 
 
 
@@ -84,6 +86,9 @@ int main() {
 			break;
 		case FSKEY_4:
 			flag = 4;
+			break;
+		case FSKEY_S:
+			flag = 5;
 			break;
 		}
 
@@ -269,6 +274,20 @@ int main() {
 			flag = 0;
 		}
 
+		if (flag == 5) {
+			
+			Show show;
+			
+			while (1) {
+				glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+				show.showMenu();
+				FsSwapBuffers();
+				// prepare for next loop
+				FsSleep(50);
+			}
+			flag = 0;
+		}
+
 
 		FsSwapBuffers();
 		// prepare for next loop
@@ -286,9 +305,12 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 {
 	int hei = 30;
 	int spacing = 10;
-	int currY = 400;
+	int currY = 400-40;
 
-
+	
+	someButtons.add(550, currY, wid, hei, FSKEY_S, "", aFont,
+		"");
+	currY += hei + spacing;
 	someButtons.add(550, currY, wid, hei, FSKEY_1, "easy", aFont,
 		"");
 
@@ -303,6 +325,7 @@ void addButtons(ButtonCollection& someButtons, GraphicFont* aFont, int xLoc, int
 	currY += hei + spacing;
 	someButtons.add(550, currY, wid, hei, FSKEY_ESC, "exit", aFont,
 		"");
+	
 
 }
 

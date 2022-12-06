@@ -49,7 +49,7 @@ public:
 		GLSetup(menufn, coinfn,tower3fn, tower1fn, tower2fn, upgradefn, removefn, backfn);
 		prev_time = time(NULL);
 	}
-	string indicator = "Hello world!";
+	string indicator = "Start!";
 	bool inPlaceMode = false;
 	ToKind selected_tower = NONE;
 	int gold = 20;

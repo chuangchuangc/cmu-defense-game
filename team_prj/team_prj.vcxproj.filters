@@ -57,6 +57,9 @@
     <ClInclude Include="StringPlus.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="show_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,7 +92,7 @@
     <ClCompile Include="enemy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="gameManger.h">
+    <ClCompile Include="gameManager.h">
       <Filter>头文件</Filter>
     </ClCompile>
     <ClCompile Include="MapManager.cpp">
