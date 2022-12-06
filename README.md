@@ -2,7 +2,7 @@
 ## Main Menu
 Include the Atlas and 3 levels buttons.
 
-![]("tem_prj/enemy1.1.png")
+![]("/team_prj/enemy1.1.png")
 
 When players click , players can select the level to play.
 
