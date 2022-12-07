@@ -1,6 +1,7 @@
 # cmu-defense-game
 ## Main Menu
 Include the Atlas and 3 levels buttons.
+Select the level of difficulty by clicking the mouse or pressing keyboread number 1, 2, 3(easy, noraml, hard).
 
 ![](/team_prj/r1.png)
 
