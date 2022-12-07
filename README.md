@@ -61,6 +61,9 @@ Players can select a location to place a tower with enough money.
 ![](/team_prj/r4.png)
 
 Players can upgrade a tower with enough money. 
+Players can upgrade tower three times. 
+With the change of apperance of the towers, each upgration will be able to increase the tower damage and attacting range.
+
 
 ![](/team_prj/r5.png)
 
